@@ -745,6 +745,51 @@
   figure img, .testimonial-photo img {
     cursor: zoom-in;
   }
+
+  /* ============== MUSIC PLAYER ============== */
+  .music-btn {
+    position: fixed;
+    bottom: 1.8rem;
+    right: 1.8rem;
+    z-index: 500;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(184,71,43,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .music-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 24px rgba(184,71,43,0.45);
+  }
+  .music-btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: #fff;
+  }
+  .music-btn .music-label {
+    position: absolute;
+    right: 3.6rem;
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    padding: 0.35rem 0.75rem;
+    border-radius: 2px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .music-btn:hover .music-label { opacity: 1; }
 </style>
 </head>
 <body>
@@ -1352,6 +1397,18 @@
   <div style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--ink-muted); margin-top: 2rem; letter-spacing: 0.4em; text-transform: uppercase;">— fin —</div>
 </section>
 
+<!-- Music player -->
+<audio id="bg-music" loop preload="none">
+  <source src="music.mp3" type="audio/mpeg" />
+</audio>
+<button class="music-btn" id="music-btn" aria-label="Play music">
+  <span class="music-label">play music</span>
+  <!-- Play icon -->
+  <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  <!-- Pause icon (hidden) -->
+  <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+</button>
+
 <!-- Lightbox -->
 <div class="lb-overlay" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
   <button class="lb-close" id="lb-close" aria-label="Close">&#215;</button>
@@ -1457,6 +1514,44 @@
     if (e.key === 'Escape')      closeLb();
     if (e.key === 'ArrowRight')  navigateLb(current + 1, 'next');
     if (e.key === 'ArrowLeft')   navigateLb(current - 1, 'prev');
+  });
+
+  // Music player
+  const audio      = document.getElementById('bg-music');
+  const musicBtn   = document.getElementById('music-btn');
+  const iconPlay   = document.getElementById('icon-play');
+  const iconPause  = document.getElementById('icon-pause');
+  const musicLabel = musicBtn.querySelector('.music-label');
+  let playing = false;
+
+  audio.volume = 0.4;
+
+  function startMusic() {
+    if (playing) return;
+    audio.play().then(() => {
+      playing = true;
+      iconPlay.style.display  = 'none';
+      iconPause.style.display = '';
+      musicLabel.textContent  = 'pause music';
+    }).catch(() => {});
+  }
+
+  // Auto-play on first click/tap anywhere
+  document.addEventListener('click', function onFirstInteraction() {
+    startMusic();
+    document.removeEventListener('click', onFirstInteraction);
+  }, { once: true });
+
+  musicBtn.addEventListener('click', () => {
+    if (playing) {
+      audio.pause();
+      playing = false;
+      iconPlay.style.display  = '';
+      iconPause.style.display = 'none';
+      musicLabel.textContent  = 'play music';
+    } else {
+      startMusic();
+    }
   });
 
   // Swipe support
