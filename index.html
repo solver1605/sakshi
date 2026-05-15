@@ -647,19 +647,34 @@
     max-width: min(88vw, 900px);
     max-height: 92vh;
   }
+  .lb-img-wrap {
+    position: relative;
+    width: min(88vw, 900px);
+    max-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
   .lb-img {
     max-width: 100%;
     max-height: 78vh;
     object-fit: contain;
     display: block;
     opacity: 0;
-    transform: scale(0.97);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(40px);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+    user-select: none;
+    -webkit-user-drag: none;
   }
   .lb-img.lb-loaded {
     opacity: 1;
-    transform: scale(1);
+    transform: translateX(0);
   }
+  .lb-img.lb-exit-left  { opacity: 0; transform: translateX(-60px); transition: opacity 0.22s ease, transform 0.22s ease; }
+  .lb-img.lb-exit-right { opacity: 0; transform: translateX(60px);  transition: opacity 0.22s ease, transform 0.22s ease; }
+  .lb-img.lb-enter-left  { opacity: 0; transform: translateX(-40px); transition: none; }
+  .lb-img.lb-enter-right { opacity: 0; transform: translateX(40px);  transition: none; }
   .lb-caption {
     font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
@@ -699,24 +714,31 @@
     position: fixed;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.35);
-    font-size: 1.8rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+    font-size: 1.2rem;
     cursor: pointer;
-    padding: 1rem;
-    transition: color 0.2s;
-    font-family: 'Inter', sans-serif;
-    font-weight: 200;
-    line-height: 1;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
     user-select: none;
+    backdrop-filter: blur(4px);
   }
-  .lb-prev { left: 1rem; }
-  .lb-next { right: 1rem; }
-  .lb-prev:hover, .lb-next:hover { color: rgba(255,255,255,0.9); }
+  .lb-prev { left: 1.2rem; }
+  .lb-next { right: 1.2rem; }
+  .lb-prev:hover, .lb-next:hover {
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+  }
   @media (max-width: 600px) {
-    .lb-prev { left: 0.2rem; }
-    .lb-next { right: 0.2rem; }
+    .lb-prev { left: 0.5rem; }
+    .lb-next { right: 0.5rem; }
+    .lb-prev, .lb-next { width: 2.4rem; height: 2.4rem; font-size: 1rem; }
   }
 
   /* make photos feel clickable */
@@ -1336,7 +1358,9 @@
   <button class="lb-prev" id="lb-prev" aria-label="Previous">&#8592;</button>
   <button class="lb-next" id="lb-next" aria-label="Next">&#8594;</button>
   <div class="lb-inner">
-    <img class="lb-img" id="lb-img" src="" alt="" />
+    <div class="lb-img-wrap">
+      <img class="lb-img" id="lb-img" src="" alt="" />
+    </div>
     <div class="lb-caption" id="lb-caption"></div>
     <div class="lb-counter" id="lb-counter"></div>
   </div>
@@ -1357,45 +1381,98 @@
   // Lightbox
   const photos = Array.from(document.querySelectorAll('figure img'));
   let current = 0;
+  let animating = false;
 
   const lb      = document.getElementById('lb');
   const lbImg   = document.getElementById('lb-img');
   const lbCap   = document.getElementById('lb-caption');
   const lbCount = document.getElementById('lb-counter');
 
-  function openLb(index) {
-    current = (index + photos.length) % photos.length;
-    const img = photos[current];
-    lbImg.classList.remove('lb-loaded');
+  function navigateLb(index, direction) {
+    if (animating) return;
+    const next = (index + photos.length) % photos.length;
+    if (next === current && lb.classList.contains('lb-open')) return;
+
+    const isOpen = lb.classList.contains('lb-open');
+
+    if (!isOpen) {
+      current = next;
+      loadPhoto(next, null);
+      lb.classList.add('lb-open');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
+
+    animating = true;
+    const exitClass  = direction === 'next' ? 'lb-exit-left' : 'lb-exit-right';
+    const enterClass = direction === 'next' ? 'lb-enter-right' : 'lb-enter-left';
+
+    lbImg.classList.add(exitClass);
+
+    setTimeout(() => {
+      current = next;
+      lbImg.classList.remove('lb-loaded', exitClass);
+      lbImg.classList.add(enterClass);
+      loadPhoto(next, () => {
+        requestAnimationFrame(() => {
+          lbImg.classList.remove(enterClass);
+          lbImg.classList.add('lb-loaded');
+          animating = false;
+        });
+      });
+    }, 220);
+  }
+
+  function loadPhoto(index, cb) {
+    const img = photos[index];
     lbImg.src = img.src;
     lbImg.alt = img.alt;
     const cap = img.closest('figure')?.querySelector('figcaption, .caption');
     lbCap.textContent = cap ? cap.textContent.trim() : '';
-    lbCount.textContent = `${current + 1} / ${photos.length}`;
-    lbImg.onload = () => lbImg.classList.add('lb-loaded');
-    if (lbImg.complete) lbImg.classList.add('lb-loaded');
-    lb.classList.add('lb-open');
-    document.body.style.overflow = 'hidden';
+    lbCount.textContent = `${index + 1} / ${photos.length}`;
+    if (cb) {
+      lbImg.onload = cb;
+      if (lbImg.complete) cb();
+    } else {
+      lbImg.onload = () => lbImg.classList.add('lb-loaded');
+      if (lbImg.complete) lbImg.classList.add('lb-loaded');
+    }
   }
 
   function closeLb() {
     lb.classList.remove('lb-open');
     document.body.style.overflow = '';
+    animating = false;
   }
 
-  photos.forEach((img, i) => img.addEventListener('click', () => openLb(i)));
+  photos.forEach((img, i) => img.addEventListener('click', () => navigateLb(i, null)));
   document.getElementById('lb-close').addEventListener('click', closeLb);
-  document.getElementById('lb-prev').addEventListener('click', () => openLb(current - 1));
-  document.getElementById('lb-next').addEventListener('click', () => openLb(current + 1));
+  document.getElementById('lb-prev').addEventListener('click', () => navigateLb(current - 1, 'prev'));
+  document.getElementById('lb-next').addEventListener('click', () => navigateLb(current + 1, 'next'));
 
   lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
 
   document.addEventListener('keydown', e => {
     if (!lb.classList.contains('lb-open')) return;
     if (e.key === 'Escape')      closeLb();
-    if (e.key === 'ArrowRight')  openLb(current + 1);
-    if (e.key === 'ArrowLeft')   openLb(current - 1);
+    if (e.key === 'ArrowRight')  navigateLb(current + 1, 'next');
+    if (e.key === 'ArrowLeft')   navigateLb(current - 1, 'prev');
   });
+
+  // Swipe support
+  let touchStartX = 0;
+  let touchStartY = 0;
+  lb.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  lb.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      dx < 0 ? navigateLb(current + 1, 'next') : navigateLb(current - 1, 'prev');
+    }
+  }, { passive: true });
 </script>
 
 </body>
