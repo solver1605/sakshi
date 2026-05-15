@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Book of Sakshi — A Life in Pages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@500;700&family=Noto+Serif+Devanagari:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Clean, light, breathable */
+    --bg:           #fefcf7;   /* barely off-white, hint of warmth */
+    --bg-warm:      #fdfbf5;
+    --ink:          #1a1410;
+    --ink-soft:     #2d2620;
+    --ink-muted:    #6f6557;
+    --accent:       #b8472b;
+    --accent-soft:  #d97757;
+    --rule:         #ebe4d6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Fraunces', Georgia, serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "ss01", "kern";
+  }
+
+  /* NO overlays. The page is white. Period. */
+  body::after,
+  body::before { display: none; }
+
+  section { position: relative; z-index: 1; }
+
+  h1, h2, h3, h4 {
+    font-family: 'Fraunces', serif;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    font-feature-settings: "ss01";
+  }
+
+  /* ============== COVER ============== */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+
+  .cover h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    line-height: 0.95;
+    font-weight: 300;
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: -0.04em;
+  }
+  .cover h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .cover .devanagari {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    margin-top: 1.2rem;
+    letter-spacing: 0.04em;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--accent);
+    margin: 3rem auto 2rem;
+  }
+
+  .cover .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0;
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .cover .by {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-top: 3rem;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+
+  .scroll-hint {
+    margin-top: 4rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: bob 2.5s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); opacity: 0.65; }
+    50%      { transform: translateY(6px); opacity: 1; }
+  }
+
+  /* ============== CHAPTERS ============== */
+  .chapter {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 8rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .chapter-heading {
+    text-align: center;
+    margin-bottom: 5rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .chapter-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+  .chapter-heading h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 300;
+    margin: 0 0 1.5rem;
+    color: var(--ink);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .chapter-heading h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .chapter-heading .flourish { display: none; }
+  .chapter-heading p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+    font-weight: 400;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* hairline divider under chapter heading */
+  .chapter-heading::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin: 2rem auto 0;
+  }
+
+  /* hide marigold rows (legacy) */
+  .marigold-row { display: none; }
+
+  /* ============== TIMELINE ============== */
+  .timeline {
+    position: relative;
+    padding: 2rem 0;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--rule);
+  }
+  .timeline-item {
+    width: 100%;
+    padding: 2rem 0 2rem 3rem;
+    margin-left: 0;
+    text-align: left;
+    position: relative;
+  }
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    width: 100%;
+    margin-left: 0;
+    text-align: left;
+    padding: 2rem 0 2rem 3rem;
+  }
+  .timeline-item::before,
+  .timeline-item:nth-child(odd)::before,
+  .timeline-item:nth-child(even)::before {
+    content: "";
+    position: absolute;
+    top: 2.6rem;
+    left: 3px;
+    right: auto;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .timeline-year {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .timeline-item h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin: 0.6rem 0 0.5rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .timeline-item p {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  /* ============== PHOTO GRID ============== */
+  .photo-pages {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+  .polaroid {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    position: relative;
+    transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
+    /* reset rotation from old layout */
+    transform: none !important;
+    margin-top: 0 !important;
+  }
+  .polaroid::before { display: none; }   /* no tape */
+  .polaroid img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    display: block;
+    background: #ddd;
+    filter: none;
+    transition: filter 0.4s ease;
+  }
+  .polaroid:hover img { filter: brightness(1.05); }
+  .polaroid .caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-align: left;
+    margin-top: 0.8rem;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+  }
+  .polaroid:hover { transform: translateY(-4px) !important; }
+
+  /* clean editorial grid layout (overrides old rotated p-x) */
+  .p-1  { grid-column: 1 / 5; }
+  .p-2  { grid-column: 5 / 9; }
+  .p-3  { grid-column: 9 / 13; }
+  .p-4  { grid-column: 1 / 5; }
+  .p-5  { grid-column: 5 / 9; }
+  .p-6  { grid-column: 9 / 13; }
+  .p-7  { grid-column: 1 / 5; }
+  .p-8  { grid-column: 5 / 9; }
+  .p-9  { grid-column: 9 / 13; }
+  .p-10 { grid-column: 1 / 5; }
+  .p-11 { grid-column: 5 / 9; }
+  .p-12 { grid-column: 9 / 13; }
+
+  /* tall-feature variant for hero photos */
+  .p-feature { grid-column: 1 / 7; }
+  .p-feature + .polaroid { grid-column: 7 / 13; }
+
+  /* ============== STORY BLOCK ============== */
+  .story-block {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    position: relative;
+  }
+  .story-block::before { display: none; }
+  .story-block p {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+  .story-block p:first-child:first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 4.5rem;
+    color: var(--accent);
+    float: left;
+    line-height: 0.85;
+    padding: 0.5rem 0.6rem 0 0;
+    margin-top: 0.2rem;
+  }
+
+  /* ============== CAREER ============== */
+  .career-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+  }
+  .career-card {
+    background: transparent;
+    padding: 2.5rem 2rem;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    box-shadow: none;
+  }
+  .career-card::before { display: none; }
+  .career-card .role-year {
+    font-family: 'Inter', sans-serif;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+  .career-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin: 0 0 0.3rem;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .career-card .company {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-muted);
+    font-size: 0.78rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .career-card p {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .skills-cloud {
+    margin-top: 4rem;
+    text-align: center;
+  }
+  .skills-cloud h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .skill-tag {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    margin: 0.25rem;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--ink-soft);
+    background: transparent;
+    letter-spacing: 0.02em;
+  }
+  .skill-tag:nth-child(3n),
+  .skill-tag:nth-child(3n+1) {
+    border-color: var(--rule);
+    color: var(--ink-soft);
+  }
+
+  /* ============== TESTIMONIALS ============== */
+  .testimonial {
+    max-width: 720px;
+    margin: 0 auto 6rem;
+    padding: 0 1rem;
+  }
+  .testimonial:last-child { margin-bottom: 0; }
+
+  /* Testimonial with paired photo (alternating layout) */
+  .testimonial-with-photo {
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3.5rem;
+    align-items: start;
+  }
+  /* Reversed: photo on right, text on left */
+  .testimonial-with-photo.testimonial-reverse {
+    grid-template-columns: 1fr 320px;
+  }
+  .testimonial-with-photo .testimonial-photo {
+    margin: 0;
+  }
+  .testimonial-with-photo .testimonial-photo img {
+    width: 100%;
+    display: block;
+  }
+  .testimonial-with-photo .testimonial-photo figcaption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    margin-top: 0.8rem;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+  }
+  .testimonial-with-photo .testimonial-text {
+    padding-top: 1rem;
+  }
+  @media (max-width: 720px) {
+    .testimonial-with-photo,
+    .testimonial-with-photo.testimonial-reverse {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .testimonial-with-photo .testimonial-photo {
+      max-width: 280px;
+      margin: 0 auto;
+      order: -1;  /* photo always above text on mobile */
+    }
+  }
+  .testimonial-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.55;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+    position: relative;
+    padding-left: 1.5rem;
+  }
+  .testimonial-quote .quote-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 4rem;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 0;
+    position: absolute;
+    left: -0.5rem;
+    top: 1.2rem;
+  }
+  .testimonial-quote .emoji {
+    font-style: normal;
+    font-size: 1.3rem;
+    vertical-align: middle;
+  }
+  .testimonial-attribution {
+    margin-top: 2.5rem;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .testimonial-attribution .attr-line {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .testimonial-attribution .attr-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .testimonial-attribution .attr-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  /* ============== CLOSING ============== */
+  .closing {
+    text-align: center;
+    padding: 8rem 2rem 6rem;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .closing::before {
+    content: "";
+    display: block;
+    width: 40px; height: 1px;
+    background: var(--accent);
+    margin: 0 auto 3rem;
+  }
+  .closing h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .closing h2 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .closing p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  .closing .from {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 2.5rem;
+  }
+
+  /* ============== RESPONSIVE ============== */
+  @media (max-width: 800px) {
+    .photo-pages {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .photo-pages > * {
+      grid-column: 1 / -1 !important;
+      max-width: 420px;
+      justify-self: center;
+    }
+    .career-grid { grid-template-columns: 1fr; }
+    .chapter { padding: 5rem 1.5rem; }
+  }
+
+  /* reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ============== LIGHTBOX ============== */
+  .lb-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(10, 8, 6, 0.93);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+  .lb-overlay.lb-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .lb-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: min(88vw, 900px);
+    max-height: 92vh;
+  }
+  .lb-img {
+    max-width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .lb-img.lb-loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .lb-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.12em;
+    text-transform: lowercase;
+    margin-top: 1.2rem;
+    text-align: center;
+    min-height: 1.2em;
+  }
+  .lb-counter {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.2em;
+    margin-top: 0.6rem;
+  }
+  .lb-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.8rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.45);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.4rem;
+    transition: color 0.2s;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+  }
+  .lb-close:hover { color: rgba(255,255,255,0.9); }
+  .lb-prev, .lb-next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.35);
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 1rem;
+    transition: color 0.2s;
+    font-family: 'Inter', sans-serif;
+    font-weight: 200;
+    line-height: 1;
+    user-select: none;
+  }
+  .lb-prev { left: 1rem; }
+  .lb-next { right: 1rem; }
+  .lb-prev:hover, .lb-next:hover { color: rgba(255,255,255,0.9); }
+  @media (max-width: 600px) {
+    .lb-prev { left: 0.2rem; }
+    .lb-next { right: 0.2rem; }
+  }
+
+  /* make photos feel clickable */
+  figure img, .testimonial-photo img {
+    cursor: zoom-in;
+  }
+</style>
+</head>
+<body>
+
+<!-- ====================== COVER ====================== -->
+<section class="cover">
+  <div class="cover-eyebrow">a story in pages</div>
+  <h1>The Book <em>of</em><br/>Sakshi</h1>
+  <div class="devanagari">साक्षी</div>
+  <div class="cover-divider"></div>
+  <div class="subtitle">A life told in photographs &amp; quiet magic.</div>
+  <div class="by">— for my favourite person<br/>in the whole world</div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ====================== PROLOGUE ====================== -->
+<section class="chapter">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">Prologue</div>
+    <h2>Once upon a Delhi morning…</h2>
+    </div>
+
+  <!-- Baby Sakshi in Himachali topi -->
+  <figure class="reveal" style="max-width: 420px; margin: 0 auto 4rem;">
+    <img src="photos/00_baby_himachali.jpg" alt="Baby Sakshi in traditional Himachali dress" style="width: 100%; display: block;" />
+    <figcaption style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--ink-muted); text-align: center; margin-top: 1rem; line-height: 1.5; letter-spacing: 0.05em; text-transform: lowercase;">
+      kangra, in the early years — the topi, the gaze, the attitude already in place
+    </figcaption>
+  </figure>
+
+  <div class="story-block reveal">
+    <p>She arrived in 1989, in Delhi — a city of noise and warmth and improbable colour — though her family's heart was always tucked away in the green folds of Kangra, Himachal Pradesh. She grew up in Laxmi Bai Nagar, on streets that knew her name, and somehow, from the very beginning, she carried something the world couldn't quite hold down: an enthusiasm for life so stubborn and bright it bordered on rebellion.</p>
+    <p>What follows is not a complete story — no story ever is. It is a scrapbook. A few pressed flowers from the long, wonderful walk that has been her life so far.</p>
+  </div>
+</section>
+
+<!-- ====================== SOLO YEARS ====================== -->
+<section class="chapter">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">Before the love story</div>
+    <h2>The solo years</h2>
+    <p>Long before the rings and the vows, there was just her — a girl with dreadlocks one summer, schoolbook ribbons another, a Harley under her, and the whole world still ahead of her.</p>
+  </div>
+
+  <div class="story-block reveal" style="margin-bottom: 4rem;">
+    <p>She was already, even then, the most interesting person in any room. The kind of girl who tried every version of herself — the school-uniform girl, the dreadlocks girl, the houseboat-in-Kerala girl, the rides-the-arcade-Harley girl — and somehow, beautifully, all of them turned out to be true at the same time. These are the pages from before. The chapters she wrote on her own.</p>
+  </div>
+
+  <!-- A small, tender aside about Dadu -->
+  <div style="max-width: 620px; margin: 0 auto 4rem; text-align: center;" class="reveal">
+    <div style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--accent); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1.2rem;">A note in the margin</div>
+    <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.35rem; line-height: 1.5; color: var(--ink-soft);">
+      And of all the people in all her years, there was one she loved most of all: her <span style="color: var(--accent); font-weight: 600;">Dadu</span>. The man who held her in photographs and in memory long after photographs end.
+    </p>
+    </div>
+
+  <div class="photo-pages">
+    <figure class="polaroid p-1 reveal">
+      <img src="photos/s01_school_days.jpg" alt="school days" />
+      <figcaption class="caption">school days, ribbons &amp; all</figcaption>
+    </figure>
+
+    <figure class="polaroid p-2 reveal">
+      <img src="photos/s02_dreadlocks_era.jpg" alt="dreadlocks era" />
+      <figcaption class="caption">the dreadlocks summer</figcaption>
+    </figure>
+
+    <figure class="polaroid p-3 reveal">
+      <img src="photos/s09_girlfriends.jpg" alt="girlfriends" />
+      <figcaption class="caption">the girls, always the girls</figcaption>
+    </figure>
+
+    <figure class="polaroid p-4 reveal">
+      <img src="photos/s03_harley_arcade.jpg" alt="arcade harley" />
+      <figcaption class="caption">born to ride (kind of)</figcaption>
+    </figure>
+
+    <figure class="polaroid p-5 reveal">
+      <img src="photos/s08_brother_mirror.jpg" alt="mirror selfie with brother" />
+      <figcaption class="caption">mirror, mischief, family</figcaption>
+    </figure>
+
+    <figure class="polaroid p-6 reveal">
+      <img src="photos/s06_houseboat.jpg" alt="kerala houseboat" />
+      <figcaption class="caption">Kerala backwaters, no shoes</figcaption>
+    </figure>
+
+    <figure class="polaroid p-7 reveal">
+      <img src="photos/s07_kerala_kite.jpg" alt="kerala with kite" />
+      <figcaption class="caption">a bird, a smile, no fear</figcaption>
+    </figure>
+
+    <figure class="polaroid p-8 reveal" style="grid-column: 5 / 9;">
+      <img src="photos/s05_grandfather.jpg" alt="with her beloved Dadu" />
+      <figcaption class="caption">with Dadu — her favourite person ♡</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====================== BHAI ====================== -->
+<section class="chapter">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">A chapter all his own</div>
+    <h2>Bhai</h2>
+    <p>Every good story has a partner-in-crime. Hers came built-in.</p>
+  </div>
+
+  <div class="story-block reveal" style="margin-bottom: 4rem;">
+    <p>There are some people you don't choose — they arrive with you, and somehow turn out to be exactly who you would have picked anyway. Her brother is that. Co-conspirator in plush-toy raids, fellow tea-picker in the hills of Munnar, late-night Delhi bike companion, the one whose face is pressed against hers in mehndi-stained photographs. The kind of bond that doesn't need explaining — only photographs, and a thousand inside jokes you'll never quite hear the punchline to.</p>
+  </div>
+
+  <div class="photo-pages">
+    <figure class="polaroid p-1 reveal">
+      <img src="photos/b06_tea_plantation.jpg" alt="tea plantation" />
+      <figcaption class="caption">Munnar, two baskets, one mission</figcaption>
+    </figure>
+
+    <figure class="polaroid p-2 reveal">
+      <img src="photos/b01_waterfall.jpg" alt="waterfall hills" />
+      <figcaption class="caption">a waterfall &amp; the people who came with</figcaption>
+    </figure>
+
+    <figure class="polaroid p-3 reveal">
+      <img src="photos/b05_minions.jpg" alt="minions shopping" />
+      <figcaption class="caption">grown-ups, allegedly</figcaption>
+    </figure>
+
+    <figure class="polaroid p-4 reveal">
+      <img src="photos/b02_delhi_bike_night.jpg" alt="delhi bike night" />
+      <figcaption class="caption">Delhi after dark, on two wheels</figcaption>
+    </figure>
+
+    <figure class="polaroid p-5 reveal">
+      <img src="photos/b04_car_cuddle.jpg" alt="car cuddle" />
+      <figcaption class="caption">backseat, best seat</figcaption>
+    </figure>
+
+    <figure class="polaroid p-6 reveal">
+      <img src="photos/b03_mehndi_hug.jpg" alt="mehndi hug" />
+      <figcaption class="caption">mehndi day — and the brother who got her there</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====================== FAMILY ====================== -->
+<section class="chapter">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">The whole picture</div>
+    <h2>Her family</h2>
+    <p>The people who taught her how to laugh — and never quite stopped.</p>
+  </div>
+
+  <div class="story-block reveal" style="margin-bottom: 4rem;">
+    <p>Look closely at any happy person and you'll find a family somewhere behind them, holding the camera. Hers is loud in the best way — the kind that turns balcony selfies into choreography, Holi into a yellow-powdered war, and a European train ride into the world's quietest party. Mum, Papa, brother and her: four people, infinite group chats, one running joke that has lasted decades.</p>
+  </div>
+
+  <div class="photo-pages">
+    <figure class="polaroid p-1 reveal" style="grid-column: 1 / 7;">
+      <img src="photos/f01_family_hilltop.jpg" alt="family on a balcony" />
+      <figcaption class="caption">the family, mid-pose, mid-laugh</figcaption>
+    </figure>
+
+    <figure class="polaroid p-2 reveal" style="grid-column: 7 / 13;">
+      <img src="photos/f02_family_holi.jpg" alt="family holi" />
+      <figcaption class="caption">Holi — survivors, technically</figcaption>
+    </figure>
+
+    <figure class="polaroid p-3 reveal" style="grid-column: 3 / 11; margin-top: 1rem;">
+      <img src="photos/f03_parents_train.jpg" alt="parents on a train" />
+      <figcaption class="caption">Mum &amp; Papa, somewhere in Europe ♡</figcaption>
+    </figure>
+  </div>
+
+  <!-- Cousins & Chachu sub-spread -->
+  <div style="text-align: center; margin: 5rem auto 2rem; max-width: 560px;" class="reveal">
+    <div style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--accent); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1rem;">And the wider tribe</div>
+    <h3 style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 2rem; margin-bottom: 0.8rem;">Cousins &amp; Chachu</h3>
+    <p style="font-family: 'EB Garamond', serif; font-style: italic; color: var(--ink-soft); font-size: 1.1rem;">
+      Because in Indian families, "family" is a very generous word — and thank god for that.
+    </p>
+    </div>
+
+  <div class="photo-pages">
+    <figure class="polaroid p-1 reveal" style="grid-column: 1 / 6;">
+      <img src="photos/f04_chachu_wedding.jpg" alt="with chachu at a wedding" />
+      <figcaption class="caption">with Chachu — same energy, always</figcaption>
+    </figure>
+
+    <figure class="polaroid p-2 reveal" style="grid-column: 6 / 13;">
+      <img src="photos/f05_cousins_hampi.jpg" alt="cousins at Hampi" />
+      <figcaption class="caption">the cousins, against a giant rock</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====================== TIMELINE ====================== -->
+<section class="chapter" id="timeline">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">Chapter One</div>
+    <h2>The pages of a life</h2>
+    <p>Every year a doorway. Every doorway a story.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-year">1989</div>
+      <h3>A daughter of Delhi</h3>
+      <p>Born in Delhi, with family roots reaching back to the hills of Kangra, Himachal Pradesh. The mountains in her blood, the city in her stride.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-year">The 90s</div>
+      <h3>Laxmi Bai Nagar days</h3>
+      <p>Childhood unfolded in the quiet lanes of Laxmi Bai Nagar — a girl who refused, even then, to do anything halfway. Mum, Papa, her brother and her: four people, one very loud house.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-year">The solo years</div>
+      <h3>Becoming herself</h3>
+      <p>Dreadlocks one summer. Houseboats in Kerala. Friends she'd keep forever. Hampi rocks, arcade Harleys, mirror selfies — a girl trying on the world to see what fit.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2011</div>
+      <h3>Into the world of design</h3>
+      <p>The beginning of a fourteen-year (and counting) love affair with branding, design and ideas that take shape on screens and in minds.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2017</div>
+      <h3>Candlelight, on one knee</h3>
+      <p>A garden. A ring. A yes. The night the rest of life began to write itself.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2018</div>
+      <h3>The wedding</h3>
+      <p>"May be a mistake, but still going strong" — her words, and the most accurate love story ever told in eight.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2019</div>
+      <h3>Middle Earth &amp; beyond</h3>
+      <p>New Zealand. Hobbiton. Glow-worm caves and coastal roads. The kind of trip you stop telling people about because they stop believing you.</p>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-year">Today</div>
+      <h3>Creative Lead, Digital — Target</h3>
+      <p>Leading designers, shaping brands, and quietly making the digital world a little more thoughtful than she found it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== PHOTO GALLERY ====================== -->
+<section class="chapter">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">Chapter Two</div>
+    <h2>The photo album</h2>
+    <p>Pinned, taped, slightly out of focus — exactly the way memory should be.</p>
+  </div>
+
+  <div class="photo-pages">
+    <figure class="polaroid p-1 reveal">
+      <img src="photos/01_silly_selfie.jpg" alt="silly face selfie" />
+      <figcaption class="caption">the face that started it all</figcaption>
+    </figure>
+
+    <figure class="polaroid p-2 reveal">
+      <img src="photos/03_early_dating.jpg" alt="early dating days" />
+      <figcaption class="caption">somewhere near the beginning</figcaption>
+    </figure>
+
+    <figure class="polaroid p-3 reveal">
+      <img src="photos/04_beer_smile.jpg" alt="beer and smile" />
+      <figcaption class="caption">cheers, to whatever comes next</figcaption>
+    </figure>
+
+    <figure class="polaroid p-4 reveal">
+      <img src="photos/02_harry_potter_cake.jpg" alt="harry potter cake" />
+      <figcaption class="caption">a birthday cake, fit for a witch</figcaption>
+    </figure>
+
+    <figure class="polaroid p-5 reveal">
+      <img src="photos/05_denim_jacket.jpg" alt="bangalore street" />
+      <figcaption class="caption">Bengaluru, afternoon light</figcaption>
+    </figure>
+
+    <figure class="polaroid p-6 reveal">
+      <img src="photos/07_ring_selfie.jpg" alt="ring selfie" />
+      <figcaption class="caption">she said yes ♡</figcaption>
+    </figure>
+
+    <figure class="polaroid p-7 reveal">
+      <img src="photos/08_proposal_knee.jpg" alt="proposal on one knee" />
+      <figcaption class="caption">the moment, in candlelight</figcaption>
+    </figure>
+
+    <figure class="polaroid p-8 reveal">
+      <img src="photos/10_reception.jpg" alt="reception" />
+      <figcaption class="caption">our wedding, in red</figcaption>
+    </figure>
+
+    <figure class="polaroid p-9 reveal">
+      <img src="photos/09_wedding_dance.jpg" alt="wedding dance" />
+      <figcaption class="caption">"happy married life, you two"</figcaption>
+    </figure>
+
+    <figure class="polaroid p-10 reveal">
+      <img src="photos/14_hobbiton_sign.jpg" alt="hobbiton" />
+      <figcaption class="caption">to Hobbiton →</figcaption>
+    </figure>
+
+    <figure class="polaroid p-11 reveal">
+      <img src="photos/17_caving.jpg" alt="caving in NZ" />
+      <figcaption class="caption">into the earth, smiling</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====================== MORE STORY ====================== -->
+<section class="chapter">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">An interlude</div>
+    <h2>A few more frames</h2>
+    </div>
+
+  <div class="photo-pages">
+    <figure class="polaroid p-1 reveal">
+      <img src="photos/13_nz_coast.jpg" alt="new zealand coast" />
+      <figcaption class="caption">pointing somewhere good</figcaption>
+    </figure>
+    <figure class="polaroid p-2 reveal">
+      <img src="photos/15_hobbiton_bread.jpg" alt="hobbiton feast" />
+      <figcaption class="caption">a feast in the Shire</figcaption>
+    </figure>
+    <figure class="polaroid p-3 reveal">
+      <img src="photos/11_saree_selfie.jpg" alt="saree" />
+      <figcaption class="caption">festival days</figcaption>
+    </figure>
+    <figure class="polaroid p-5 reveal">
+      <img src="photos/18_traditional_pensive.jpg" alt="pensive" />
+      <figcaption class="caption">quiet moment, peach &amp; gold</figcaption>
+    </figure>
+    <figure class="polaroid p-6 reveal">
+      <img src="photos/12_cozy_evening.jpg" alt="cozy evening" />
+      <figcaption class="caption">a cozy kind of night</figcaption>
+    </figure>
+    <figure class="polaroid p-7 reveal">
+      <img src="photos/19_laughing.jpg" alt="laughing" />
+      <figcaption class="caption">caught mid-laugh, as usual</figcaption>
+    </figure>
+    <figure class="polaroid p-8 reveal">
+      <img src="photos/06_proposal_moment.jpg" alt="proposal dinner" />
+      <figcaption class="caption">a table set for forever</figcaption>
+    </figure>
+    <figure class="polaroid p-9 reveal">
+      <img src="photos/20_recent_portrait.jpg" alt="recent portrait" />
+      <figcaption class="caption">and here she is — today</figcaption>
+    </figure>
+
+    <figure class="polaroid p-10 reveal">
+      <img src="photos/21_wednesday.jpg" alt="wednesday outfit with guitar" />
+      <figcaption class="caption">just another Wednesday, 10:21 ♪</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====================== CAREER ====================== -->
+<section class="chapter" id="career">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">Chapter Three</div>
+    <h2>A craft, fourteen years in the making</h2>
+    <p>What she does for a living — though "living" undersells it considerably.</p>
+  </div>
+
+  <div class="story-block reveal" style="margin-bottom: 3rem;">
+    <p>Sakshi is a design leader. That's the short version. The long version is that for over a decade she has been quietly shaping how brands look, feel and behave in the digital world — leading designers, writers and strategists, and finding the precise point where creativity meets business sense and neither has to apologise to the other.</p>
+    <p>She works at the intersection of branding, user experience, creative strategy, and — most recently — generative AI. She believes design should be beautiful <em>and</em> useful, that great teams are built on trust, and that the best ideas usually arrive sideways.</p>
+  </div>
+
+  <div class="career-grid">
+    <div class="career-card reveal">
+      <div class="role-year">currently</div>
+      <h3>Creative Lead — Digital</h3>
+      <div class="company">Target</div>
+      <p>Guiding designers and copywriters to produce digital work that elevates brand presence and drives measurable results. Integrating GenAI into creative workflows to accelerate ideation without losing soul.</p>
+    </div>
+
+    <div class="career-card reveal">
+      <div class="role-year">across the years</div>
+      <h3>14+ years in design</h3>
+      <div class="company">Branding · UX · Creative Strategy</div>
+      <p>Strengthening brand positioning in crowded markets, building user-focused digital experiences that engage and convert, and leading teams to deliver consistently high-quality creative work at scale.</p>
+    </div>
+
+    <div class="career-card reveal">
+      <div class="role-year">what's next</div>
+      <h3>Head of Design · Creative Director</h3>
+      <div class="company">the roles she's reaching for</div>
+      <p>Open to leadership roles where she can shape brand narratives, empower creative teams, and drive meaningful impact — uniting creative vision with strategic clarity.</p>
+    </div>
+
+    <div class="career-card reveal">
+      <div class="role-year">what sets her apart</div>
+      <h3>Vision &amp; leadership, together</h3>
+      <div class="company">the quiet ingredient</div>
+      <p>An ability to nurture talent and inspire teams while keeping projects strategically sound — balancing artistry, business insight, and forward-thinking leadership in equal measure.</p>
+    </div>
+  </div>
+
+  <div class="skills-cloud reveal">
+    <h4>— the toolkit —</h4>
+    <span class="skill-tag">Branding &amp; Identity</span>
+    <span class="skill-tag">UX Design</span>
+    <span class="skill-tag">Creative Strategy</span>
+    <span class="skill-tag">Design Thinking</span>
+    <span class="skill-tag">Generative AI in Design</span>
+    <span class="skill-tag">Team Leadership</span>
+    <span class="skill-tag">Digital Campaigns</span>
+    <span class="skill-tag">Brand Storytelling</span>
+  </div>
+</section>
+
+<!-- ====================== TESTIMONIALS ====================== -->
+<section class="chapter" id="testimonials">
+  <div class="chapter-heading reveal">
+    <div class="chapter-num">In their words</div>
+    <h2>What the people who love her have to say</h2>
+    <p>Because some things should be heard from the people who've known her longest.</p>
+  </div>
+
+  <div class="testimonial reveal">
+    <div class="testimonial-quote">
+      <span class="quote-mark">“</span>
+      Sakshi, our little naughty princess <span class="emoji">👑💕</span>
+      <br/><br/>
+      From childhood you are full of mischief, endless drama, and cute tantrums — but you are also the sweetest blessing of our life. Wishing you a very happy birthday <span class="emoji">🎂</span>
+      <br/><br/>
+      Stay happy, stay crazy, and always keep spreading your sparkle, my sweet bacha.
+    </div>
+    <div class="testimonial-attribution">
+      <div class="attr-line"></div>
+      <div class="attr-name">Mum</div>
+      <div class="attr-role">the one who has loved her longest</div>
+    </div>
+  </div>
+
+  <!-- Papa's testimonial with paired photo -->
+  <div class="testimonial testimonial-with-photo reveal">
+    <figure class="testimonial-photo">
+      <img src="photos/00b_baby_white_dress.jpg" alt="Baby Sakshi in a white dress, arm raised" />
+      <figcaption>the parathas-in-the-schoolbag era</figcaption>
+    </figure>
+    <div class="testimonial-text">
+      <div class="testimonial-quote">
+        <span class="quote-mark">“</span>
+        Sakshi, you're 37!
+        <br/><br/>
+        We still can't believe the kid who used to hide parathas in her school bag and shove milk and chapatis under the bed while saying <em>"I finished it"</em> now handles life like a pro.
+        <br/><br/>
+        Thanks for 37 years of laughs, chaos, and hugs that fixed everything. Celebrate big today!
+        <br/><br/>
+        We luv you <span class="emoji">❤️❤️❤️❤️❤️❤️</span>
+        <br/>
+        HAPPY BIRTHDAY <span class="emoji">🥳🎉🎊🎂🥂🤗</span>
+      </div>
+      <div class="testimonial-attribution">
+        <div class="attr-line"></div>
+        <div class="attr-name">Papa</div>
+        <div class="attr-role">keeper of all her secrets, including the chapati ones</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brother's testimonial — reversed layout (photo on right) -->
+  <div class="testimonial testimonial-with-photo testimonial-reverse reveal">
+    <div class="testimonial-text">
+      <div class="testimonial-quote">
+        <span class="quote-mark">"</span>
+        Throughout my life, I was raised knowing I was picked up from a trashcan or from the stairs of a temple, and I believed it until I started realising she only used to say this because deep down she knew she was the one who was picked up from the trashcan. But never in my life did I let her feel like this. Since childhood, I loved her with all my heart and still do.
+        <br/><br/>
+        I tried a lot to help save her from our parents' scolding, <em>par kuch kaam hi aise the ki</em> I also couldn't do much. <span class="emoji">😂</span> She kept on making her way single-handedly, not caring what others thought, but doing what she felt was right, and I kept making notes for myself, seeing what would get you thrashed and what would not <em>(smart toh bachpan se hi tha)</em> <span class="emoji">😎</span>
+        <br/><br/>
+        But she became an inspiration to me to do well and stand up for myself. Can't thank her enough for being the pillar in my life, being that friend with whom I can share everything and who will always have my back.
+        <br/><br/>
+        Thank you for making my childhood awesome and memorable — those late-night snacking sessions, you cheating during water drinking competitions. Thank you for introducing me to my first English band (Backstreet Boys), for standing up to Mum and Dad to let me go on my first school trip, thank you for my first iPhone, for helping me with my dressing sense, how to talk confidently, and how to make female friends comfortable around me while other boys used to struggle to talk. I'm glad to have experienced my first international trip with you. <span class="emoji">🥹😍❤️</span>
+        <br/><br/>
+        She had to do a lot of things alone, but my first experiences in life have always been shared with her.
+        <br/><br/>
+        I miss you a lot and can't wait to see you soon..
+        <br/>
+        <strong>BEST SISTAAAAA EVEEERRRRR</strong> <span class="emoji">🥰</span>
+      </div>
+      <div class="testimonial-attribution">
+        <div class="attr-line"></div>
+        <div class="attr-name">Her brother</div>
+        <div class="attr-role">the smart one (his words), the one she raised right</div>
+      </div>
+    </div>
+    <figure class="testimonial-photo">
+      <img src="photos/b03_mehndi_hug.jpg" alt="Sakshi and her brother at the mehndi" />
+      <figcaption>mehndi day — still the same two kids, really</figcaption>
+    </figure>
+  </div>
+
+  <!-- Future sister-in-law's testimonial — reversed layout (photo on right) -->
+  <div class="testimonial testimonial-with-photo testimonial-reverse reveal">
+    <div class="testimonial-text">
+      <div class="testimonial-quote">
+        <span class="quote-mark">“</span>
+        We came into each other's lives through Shubham, and then completely hit it off as friends. Turns out we'd vibe over anything and everything.
+        <br/><br/>
+        She's the kind of person you can go shopping with in the afternoon, watch a movie with in the evening, and then end up in a two-hour conversation at midnight about something completely abstract (and oddly profound).
+        <br/><br/>
+        She is so full of life and has this rare quality where she can be <em>genuinely funny and genuinely profound</em> all at the same time — and I admire this about her the most.
+        <br/><br/>
+        Here's to Sakshi di <span class="emoji">🥂</span> — and to a life soaked in joy and warmth.
+      </div>
+      <div class="testimonial-attribution">
+        <div class="attr-line"></div>
+        <div class="attr-name">Her soon-to-be sister-in-law</div>
+        <div class="attr-role">a sister, a friend, &amp; a midnight philosopher</div>
+      </div>
+    </div>
+    <figure class="testimonial-photo">
+      <img src="photos/t03_sil_painting.jpg" alt="Sakshi and her future sister-in-law at a pottery painting session" />
+      <figcaption>painting blue moons together, somewhere in Bengaluru</figcaption>
+    </figure>
+  </div>
+
+  <!-- Akshi — paired photo of cooking together -->
+  <div class="testimonial testimonial-with-photo reveal">
+    <figure class="testimonial-photo">
+      <img src="photos/t05_akshi_kachoris1.jpg" alt="Sakshi and Akshi making kachoris together" />
+      <figcaption>kachoris in a parking garage, with marigolds for witnesses</figcaption>
+    </figure>
+    <div class="testimonial-text">
+      <div class="testimonial-quote">
+        <span class="quote-mark">“</span>
+        Happy birthday to my most stunning bhabi <span class="emoji">💕</span>
+        <br/><br/>
+        You are more than family — you are my friend, my guide, and my inspiration. Every time I am with you, life feels brighter, happier, and full of positivity.
+        <br/><br/>
+        You have this magical way of helping me see the right path, encouraging me to make the best decisions, and lifting my spirits with your smile.
+        <br/><br/>
+        On your special day, I want to celebrate you — the woman who radiates elegance, wisdom, and kindness. May this year bring you endless laughter, dreams fulfilled, and moments that sparkle just like you do. <span class="emoji">🌟</span>
+        <br/><br/>
+        Thank you for being my constant support, my partner in fun, and my source of strength. You truly make the world a better place just by being yourself.
+        <br/><br/>
+        Stay fabulous, stay inspiring, and keep shining — because you are a blessing in my life. <span class="emoji">💖</span>
+        <br/><br/>
+        <em>With all my love and warmest wishes…</em>
+      </div>
+      <div class="testimonial-attribution">
+        <div class="attr-line"></div>
+        <div class="attr-name">Akshi</div>
+        <div class="attr-role">her bhabi, her friend, her guide</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rehat — child's voice with the family dinner photo -->
+  <div class="testimonial testimonial-with-photo testimonial-reverse reveal">
+    <div class="testimonial-text">
+      <div class="testimonial-quote">
+        <span class="quote-mark">“</span>
+        Happy Birthday, Dearest Mami <span class="emoji">❤️</span>
+        <br/><br/>
+        Some people become special not just because they are family, but because of the love, warmth, and care they bring into everyone's life — and you are one of those beautiful people. Your kindness, gentle heart, and loving nature make every moment around you feel comforting and happy.
+        <br/><br/>
+        Thank you for always being so caring, supportive, and loving. The way you spread positivity and make everyone feel valued is truly rare and precious. Your presence brings peace, laughter, and warmth to the family, and life feels brighter because of you.
+        <br/><br/>
+        On your special day, I pray that God blesses you with endless happiness, good health, peace of mind, and all the love that you selflessly give to others every day. <em>May every tear turn into a smile, every prayer of yours come true, and every coming year bring more beautiful memories into your life.</em>
+        <br/><br/>
+        You deserve all the happiness in the world, today and always.
+        <br/><br/>
+        Happy Birthday, Mami. May your smile always shine and your heart always stay happy and loved.
+        <br/><br/>
+        Love u alot Mami <span class="emoji">❤️</span>
+      </div>
+      <div class="testimonial-attribution">
+        <div class="attr-line"></div>
+        <div class="attr-name">Rehat</div>
+        <div class="attr-role">her niece, who already writes like a poet</div>
+      </div>
+    </div>
+    <figure class="testimonial-photo">
+      <img src="photos/t04_akshi_dinner.jpg" alt="Sakshi at dinner with her mother-in-law, Akshi, and little Rehat" />
+      <figcaption>dinner under the cherry blossoms — Sakshi, Mummy ji, Akshi &amp; little Rehat</figcaption>
+    </figure>
+  </div>
+</section>
+<section class="closing">
+  <h2>And so the book goes on…</h2>
+  <p>
+    Some chapters have been written. Many more remain.<br/>
+    The best ones, I suspect, we'll write together.
+  </p>
+  <p style="font-family: 'Caveat', cursive; font-size: 1.5rem; color: var(--accent); margin-top: 2rem;">
+    Happy birthday / anniversary, my love.<br/>
+    Here's to all the pages still to come.
+  </p>
+  <div class="from">— with all of me</div>
+  <div style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--ink-muted); margin-top: 2rem; letter-spacing: 0.4em; text-transform: uppercase;">— fin —</div>
+</section>
+
+<!-- Lightbox -->
+<div class="lb-overlay" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" id="lb-close" aria-label="Close">&#215;</button>
+  <button class="lb-prev" id="lb-prev" aria-label="Previous">&#8592;</button>
+  <button class="lb-next" id="lb-next" aria-label="Next">&#8594;</button>
+  <div class="lb-inner">
+    <img class="lb-img" id="lb-img" src="" alt="" />
+    <div class="lb-caption" id="lb-caption"></div>
+    <div class="lb-counter" id="lb-counter"></div>
+  </div>
+</div>
+
+<script>
+  // Gentle scroll-reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Lightbox
+  const photos = Array.from(document.querySelectorAll('figure img'));
+  let current = 0;
+
+  const lb      = document.getElementById('lb');
+  const lbImg   = document.getElementById('lb-img');
+  const lbCap   = document.getElementById('lb-caption');
+  const lbCount = document.getElementById('lb-counter');
+
+  function openLb(index) {
+    current = (index + photos.length) % photos.length;
+    const img = photos[current];
+    lbImg.classList.remove('lb-loaded');
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    const cap = img.closest('figure')?.querySelector('figcaption, .caption');
+    lbCap.textContent = cap ? cap.textContent.trim() : '';
+    lbCount.textContent = `${current + 1} / ${photos.length}`;
+    lbImg.onload = () => lbImg.classList.add('lb-loaded');
+    if (lbImg.complete) lbImg.classList.add('lb-loaded');
+    lb.classList.add('lb-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLb() {
+    lb.classList.remove('lb-open');
+    document.body.style.overflow = '';
+  }
+
+  photos.forEach((img, i) => img.addEventListener('click', () => openLb(i)));
+  document.getElementById('lb-close').addEventListener('click', closeLb);
+  document.getElementById('lb-prev').addEventListener('click', () => openLb(current - 1));
+  document.getElementById('lb-next').addEventListener('click', () => openLb(current + 1));
+
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('lb-open')) return;
+    if (e.key === 'Escape')      closeLb();
+    if (e.key === 'ArrowRight')  openLb(current + 1);
+    if (e.key === 'ArrowLeft')   openLb(current - 1);
+  });
+</script>
+
+</body>
+</html>
