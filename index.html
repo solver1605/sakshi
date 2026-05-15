@@ -599,16 +599,69 @@
   /* ============== RESPONSIVE ============== */
   @media (max-width: 800px) {
     .photo-pages {
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .photo-pages > * {
+      grid-column: span 1 !important;
+    }
+    /* full-width feature photos */
+    .photo-pages > *:first-child,
+    .p-feature {
+      grid-column: 1 / -1 !important;
+    }
+    .career-grid { grid-template-columns: 1fr; }
+    .chapter { padding: 4rem 1.2rem; }
+    .chapter-heading { margin-bottom: 3rem; }
+    .chapter-heading h2 { font-size: clamp(2rem, 8vw, 3rem); }
+    .story-block p { font-size: 1.05rem; }
+    .timeline { padding: 1rem 0; }
+    .timeline-item h3 { font-size: 1.3rem; }
+    .cover h1 { font-size: clamp(3rem, 14vw, 5rem); }
+    .cover .subtitle { font-size: 1rem; }
+    .cover .by { font-size: 1.2rem; }
+    .testimonial-quote { font-size: 1.15rem; }
+    .skills-cloud { margin-top: 2.5rem; }
+    .music-btn { bottom: 1.2rem; right: 1.2rem; }
+  }
+
+  @media (max-width: 480px) {
+    .photo-pages {
       grid-template-columns: 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
     }
     .photo-pages > * {
       grid-column: 1 / -1 !important;
-      max-width: 420px;
-      justify-self: center;
+      max-width: 100%;
     }
-    .career-grid { grid-template-columns: 1fr; }
-    .chapter { padding: 5rem 1.5rem; }
+    .chapter { padding: 3rem 1rem; }
+    .cover { padding: 3rem 1.2rem; }
+    .testimonial { padding: 0; }
+    .career-card { padding: 1.8rem 1.2rem; }
+    .closing { padding: 5rem 1.2rem 4rem; }
+  }
+
+  /* ============== OPENING ANIMATION ============== */
+  .cover-eyebrow,
+  .cover h1,
+  .cover .devanagari,
+  .cover-divider,
+  .cover .subtitle,
+  .cover .by,
+  .cover .scroll-hint {
+    opacity: 0;
+  }
+  .cover-eyebrow  { animation: fadeUp 0.8s ease 0.3s  forwards; }
+  .cover h1       { animation: fadeUp 1s   ease 0.7s  forwards; }
+  .cover .devanagari { animation: fadeUp 0.8s ease 1.2s forwards; }
+  .cover-divider  { animation: fadeUp 0.6s ease 1.5s  forwards; }
+  .cover .subtitle{ animation: fadeUp 0.8s ease 1.7s  forwards; }
+  .cover .by      { animation: fadeUp 0.8s ease 2.1s  forwards; }
+  .cover .scroll-hint { animation: fadeUp 0.8s ease 2.6s forwards, bob 2.5s ease 3.4s infinite; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   /* reveal animation */
@@ -798,7 +851,7 @@
 <section class="cover">
   <div class="cover-eyebrow">a story in pages</div>
   <h1>The Book <em>of</em><br/>Sakshi</h1>
-  <div class="devanagari">साक्षी</div>
+  <div class="devanagari" id="easter-egg" title="✨" style="cursor:pointer;">साक्षी</div>
   <div class="cover-divider"></div>
   <div class="subtitle">A life told in photographs &amp; quiet magic.</div>
   <div class="by">— for my favourite person<br/>in the whole world</div>
@@ -963,14 +1016,14 @@
     </figure>
   </div>
 
-  <!-- Cousins & Chachu sub-spread -->
+  <!-- Cousins & Massi sub-spread -->
   <div style="text-align: center; margin: 5rem auto 2rem; max-width: 560px;" class="reveal">
     <div style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--accent); letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 1rem;">And the wider tribe</div>
-    <h3 style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500; font-size: 2rem; margin-bottom: 0.8rem;">Cousins &amp; Chachu</h3>
-    <p style="font-family: 'EB Garamond', serif; font-style: italic; color: var(--ink-soft); font-size: 1.1rem;">
+    <h3 style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 2rem; margin-bottom: 0.8rem;">Cousins &amp; Massi</h3>
+    <p style="font-family: 'Fraunces', serif; font-style: italic; color: var(--ink-soft); font-size: 1.1rem;">
       Because in Indian families, "family" is a very generous word — and thank god for that.
     </p>
-    </div>
+  </div>
 
   <div class="photo-pages">
     <figure class="polaroid p-1 reveal" style="grid-column: 1 / 6;">
@@ -981,6 +1034,21 @@
     <figure class="polaroid p-2 reveal" style="grid-column: 6 / 13;">
       <img src="photos/f05_cousins_hampi.jpg" alt="cousins at Hampi" />
       <figcaption class="caption">the cousins, against a giant rock</figcaption>
+    </figure>
+
+    <figure class="polaroid p-3 reveal" style="grid-column: 1 / 7;">
+      <img src="photos/f06_cousins_steps.jpg" alt="cousins on steps" />
+      <figcaption class="caption">four sunglasses, one gorgeous door</figcaption>
+    </figure>
+
+    <figure class="polaroid p-4 reveal" style="grid-column: 7 / 13;">
+      <img src="photos/f07_massi_airport.jpg" alt="airport selfie with Massi" />
+      <figcaption class="caption">airport energy — ready for anything</figcaption>
+    </figure>
+
+    <figure class="polaroid p-5 reveal" style="grid-column: 4 / 10; margin-top: 1rem;">
+      <img src="photos/f08_massi_hersheys.jpg" alt="Massi at Hersheys" />
+      <figcaption class="caption">Hershey's, no regrets</figcaption>
     </figure>
   </div>
 </section>
@@ -1222,20 +1290,32 @@
     <p>Because some things should be heard from the people who've known her longest.</p>
   </div>
 
-  <div class="testimonial reveal">
-    <div class="testimonial-quote">
-      <span class="quote-mark">“</span>
-      Sakshi, our little naughty princess <span class="emoji">👑💕</span>
-      <br/><br/>
-      From childhood you are full of mischief, endless drama, and cute tantrums — but you are also the sweetest blessing of our life. Wishing you a very happy birthday <span class="emoji">🎂</span>
-      <br/><br/>
-      Stay happy, stay crazy, and always keep spreading your sparkle, my sweet bacha.
+  <div class=”testimonial testimonial-with-photo reveal”>
+    <figure class=”testimonial-photo”>
+      <img src=”photos/t09_mum_scooter.jpg” alt=”Mum and baby Sakshi on a scooter” />
+      <figcaption>the very beginning — already inseparable</figcaption>
+    </figure>
+    <div class=”testimonial-text”>
+      <div class=”testimonial-quote”>
+        <span class=”quote-mark”>”</span>
+        Sakshi, our little naughty princess <span class=”emoji”>👑💕</span>
+        <br/><br/>
+        From childhood you are full of mischief, endless drama, and cute tantrums — but you are also the sweetest blessing of our life. Wishing you a very happy birthday <span class=”emoji”>🎂</span>
+        <br/><br/>
+        Stay happy, stay crazy, and always keep spreading your sparkle, my sweet bacha.
+      </div>
+      <div class=”testimonial-attribution”>
+        <div class=”attr-line”></div>
+        <div class=”attr-name”>Mum</div>
+        <div class=”attr-role”>the one who has loved her longest</div>
+      </div>
     </div>
-    <div class="testimonial-attribution">
-      <div class="attr-line"></div>
-      <div class="attr-name">Mum</div>
-      <div class="attr-role">the one who has loved her longest</div>
-    </div>
+  </div>
+
+  <!-- Mum & baby Sakshi second photo -->
+  <div style=”max-width: 340px; margin: -2rem auto 4rem;” class=”reveal”>
+    <img src=”photos/t10_mum_holding.jpg” alt=”Mum holding baby Sakshi” style=”width:100%; display:block;” />
+    <p style=”font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:500; color:var(--ink-muted); text-align:center; margin-top:0.8rem; letter-spacing:0.05em; text-transform:lowercase;”>held from the very first day</p>
   </div>
 
   <!-- Papa's testimonial with paired photo -->
@@ -1382,6 +1462,27 @@
       <figcaption>somewhere on a train — two smiles, one window</figcaption>
     </figure>
   </div>
+
+  <!-- Massi — Asavari -->
+  <div class="testimonial testimonial-with-photo reveal">
+    <figure class="testimonial-photo">
+      <img src="photos/t08_massi.jpg" alt="Sakshi and Massi Asavari" />
+      <figcaption>somewhere cold, somewhere beautiful — still smiling</figcaption>
+    </figure>
+    <div class="testimonial-text">
+      <div class="testimonial-quote">
+        <span class="quote-mark">"</span>
+        No matter how old you get, you will always be my little buddy, my favourite coffee date, a partner in crime!
+        <br/><br/>
+        May our bond keep growing as Jack's beanstalk! <span class="emoji">🌱</span>
+      </div>
+      <div class="testimonial-attribution">
+        <div class="attr-line"></div>
+        <div class="attr-name">Asavari &amp; Dev</div>
+        <div class="attr-role">Massi — coffee dates, crime, and everything in between</div>
+      </div>
+    </div>
+  </div>
 </section>
 <section class="closing">
   <h2>And so the book goes on…</h2>
@@ -1397,10 +1498,6 @@
   <div style="font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500; color: var(--ink-muted); margin-top: 2rem; letter-spacing: 0.4em; text-transform: uppercase;">— fin —</div>
 </section>
 
-<!-- Music player -->
-<audio id="bg-music" loop preload="none">
-  <source src="music.mp3" type="audio/mpeg" />
-</audio>
 <button class="music-btn" id="music-btn" aria-label="Play music">
   <span class="music-label">play music</span>
   <!-- Play icon -->
@@ -1516,24 +1613,67 @@
     if (e.key === 'ArrowLeft')   navigateLb(current - 1, 'prev');
   });
 
-  // Music player
-  const audio      = document.getElementById('bg-music');
+  // Music player — dual audio elements for gapless looping
   const musicBtn   = document.getElementById('music-btn');
   const iconPlay   = document.getElementById('icon-play');
   const iconPause  = document.getElementById('icon-pause');
   const musicLabel = musicBtn.querySelector('.music-label');
   let playing = false;
 
-  audio.volume = 0.4;
+  const trackA = new Audio('music_trimmed.mp3');
+  const trackB = new Audio('music_trimmed.mp3');
+  trackA.volume = trackB.volume = 0.03;
+  trackA.preload = trackB.preload = 'auto';
+  let active = trackA, standby = trackB;
+  let swapTimer = null;
+
+  // Pre-warm: load standby into browser's decode pipeline immediately
+  function prewarm(track) {
+    track.play().then(() => { track.pause(); track.currentTime = 0; }).catch(() => {});
+  }
+
+  function scheduleSwap() {
+    clearTimeout(swapTimer);
+    // Prime standby 0.5s before end so decode is ready
+    const primeIn  = (active.duration - active.currentTime - 0.5) * 1000;
+    const swapIn   = (active.duration - active.currentTime - 0.05) * 1000;
+
+    setTimeout(() => {
+      standby.currentTime = 0;
+      standby.play().catch(() => {});
+    }, Math.max(primeIn, 0));
+
+    swapTimer = setTimeout(() => {
+      const prev = active;
+      active  = standby;
+      standby = prev;
+      scheduleSwap();
+    }, Math.max(swapIn, 0));
+  }
+
+  function setUI(isPlaying) {
+    iconPlay.style.display  = isPlaying ? 'none' : '';
+    iconPause.style.display = isPlaying ? ''     : 'none';
+    musicLabel.textContent  = isPlaying ? 'pause music' : 'play music';
+  }
 
   function startMusic() {
     if (playing) return;
-    audio.play().then(() => {
+    active.currentTime = 0;
+    active.play().then(() => {
       playing = true;
-      iconPlay.style.display  = 'none';
-      iconPause.style.display = '';
-      musicLabel.textContent  = 'pause music';
+      setUI(true);
+      active.addEventListener('loadedmetadata', scheduleSwap, { once: true });
+      if (active.duration) scheduleSwap();
     }).catch(() => {});
+  }
+
+  function stopMusic() {
+    if (!playing) return;
+    clearTimeout(swapTimer);
+    trackA.pause(); trackB.pause();
+    playing = false;
+    setUI(false);
   }
 
   // Auto-play on first click/tap anywhere
@@ -1542,15 +1682,34 @@
     document.removeEventListener('click', onFirstInteraction);
   }, { once: true });
 
-  musicBtn.addEventListener('click', () => {
-    if (playing) {
-      audio.pause();
-      playing = false;
-      iconPlay.style.display  = '';
-      iconPause.style.display = 'none';
-      musicLabel.textContent  = 'play music';
-    } else {
-      startMusic();
+  musicBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    playing ? stopMusic() : startMusic();
+  });
+
+  // Easter egg — confetti on साक्षी click
+  document.getElementById('easter-egg').addEventListener('click', () => {
+    const colors = ['#b8472b', '#d97757', '#f5c89a', '#fff', '#f7e7d3', '#e8a87c'];
+    for (let i = 0; i < 90; i++) {
+      const el = document.createElement('div');
+      const size = Math.random() * 8 + 4;
+      el.style.cssText = `
+        position:fixed; z-index:9999; pointer-events:none;
+        width:${size}px; height:${size}px;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        border-radius:${Math.random() > 0.5 ? '50%' : '1px'};
+        left:${Math.random()*100}vw; top:-10px;
+        opacity:1;
+        transform:rotate(${Math.random()*360}deg);
+        transition: transform ${1.2+Math.random()*1.2}s ease, top ${1.5+Math.random()*1.5}s ease, opacity 0.4s ease ${1.2+Math.random()}s;
+      `;
+      document.body.appendChild(el);
+      requestAnimationFrame(() => {
+        el.style.top = `${70 + Math.random()*30}vh`;
+        el.style.transform = `rotate(${Math.random()*720}deg) translateX(${(Math.random()-0.5)*200}px)`;
+        el.style.opacity = '0';
+      });
+      setTimeout(() => el.remove(), 3000);
     }
   });
 
